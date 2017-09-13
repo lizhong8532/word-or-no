@@ -1,8 +1,6 @@
-# -*- coding:utf-8 -*-
 import os, argparse
 import tensorflow as tf
 from tensorflow.python.framework import graph_util
-
 
 def freeze_graph(model_folder):
 	# We retrieve our checkpoint fullpath
@@ -12,12 +10,6 @@ def freeze_graph(model_folder):
 	# We precise the file fullname of our freezed graph
 	output_graph = "./graph.pb"
 
-	# Before exporting our graph, we need to precise what is our output node
-	# this variables is plural, because you can have multiple output nodes
-	# freeze之前必须明确哪个是输出结点,也就是我们要得到推论结果的结点
-	# 输出结点可以看我们模型的定义
-	# 只有定义了输出结点,freeze才会把得到输出结点所必要的结点都保存下来,或者哪些结点可以丢弃
-	# 所以,output_node_names必须根据不同的网络进行修改
 	output_node_names = "accuracy"
 
 	# We clear the devices, to allow TensorFlow to control on the loading where it wants operations to be calculated
@@ -30,9 +22,6 @@ def freeze_graph(model_folder):
 	graph = tf.get_default_graph()
 	input_graph_def = graph.as_graph_def()
 
-	# We start a session and restore the graph weights
-	# 这边已经将训练好的参数加载进来,也即最后保存的模型是有图,并且图里面已经有参数了,所以才叫做是frozen
-	# 相当于将参数已经固化在了图当中
 	with tf.Session() as sess:
 		saver.restore(sess, input_checkpoint)
 

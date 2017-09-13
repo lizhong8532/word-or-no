@@ -35,6 +35,7 @@ with tf.Session() as sess:
 
 	# print predictions[0]
 
+	print predictions[0]
 	if predictions[0][0] <= 2.5 or predictions[0][1] >= -1:
 		print 'word'
 	else:

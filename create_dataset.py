@@ -79,4 +79,4 @@ random.shuffle(files)
 split_num = int(len(files) * validation_rate)
 
 create(files[split_num:], 'train')
-# create(files[:split_num], 'validation')
+create(files[:split_num], 'validation')
